@@ -9,6 +9,7 @@ variables:
   azureAppServiceName: 'mfwebapp4567'
 
 steps:
+
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
@@ -62,9 +63,10 @@ steps:
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
-    azureSubscription: $(azureServiceConnection)
+    azureSubscription: ${{ variables.azureServiceConnection }}
     appType: 'webApp'
-    WebAppName: $(azureAppServiceName)
+    WebAppName: ${{ variable.azureAppServiceName }}
     packageForLinux: '$(build.ArtifactStagingDirectory)/s.zip'
     enableCustomDeployment: true
     DeploymentType: 'zipDeploy'
+
