@@ -31,4 +31,27 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: '**/*Tests
+    projects: '**/*Tests.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    artifactName: 'package'
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    publishLocation: 'Container'
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: '$(azureServiceConnection)'
+    appType: 'webApp'
+    WebAppName: '$(azureAppServiceName)'
+    packageForLinux: '$(System.ArtifactsDirectory)/package/**/*.zip'
+    enableCustomDeployment: true
+    deploymentMethod: 'zipDeploy'
