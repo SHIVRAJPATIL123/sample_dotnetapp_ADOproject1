@@ -46,6 +46,14 @@ steps:
     pathToPublish: '$(Build.ArtifactStagingDirectory)'
     publishLocation: 'Container'
 
+- task: CmdLine@2
+  inputs:
+    script: |
+      ls $(Build.ArtifactStagingDirectory)
+      pwd
+      echo "ls inside package"
+      ls $(Build.ArtifactStagingDirectory)/package
+
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
