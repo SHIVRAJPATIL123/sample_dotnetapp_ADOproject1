@@ -65,7 +65,7 @@ steps:
     ConnectionType: 'AzureRM'
     azureSubscription: ${{ variables.azureServiceConnection }}
     appType: 'webApp'
-    WebAppName: ${{ variable.azureAppServiceName }}
+    WebAppName: ${{ variables.azureAppServiceName }}
     packageForLinux: '$(build.ArtifactStagingDirectory)/s.zip'
     enableCustomDeployment: true
     DeploymentType: 'zipDeploy'
