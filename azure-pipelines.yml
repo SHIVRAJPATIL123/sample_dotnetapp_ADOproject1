@@ -66,4 +66,4 @@ steps:
     WebAppName: '$(azureAppServiceName)'
     packageForLinux: '$(System.ArtifactsDirectory)/package.zip'
     enableCustomDeployment: true
-    deploymentMethod: 'zipDeploy'
+    DeploymentType: 'zipDeploy'
