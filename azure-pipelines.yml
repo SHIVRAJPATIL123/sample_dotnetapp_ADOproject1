@@ -46,11 +46,11 @@ steps:
       ls $(Build.ArtifactStagingDirectory)
       pwd
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    ArtifactName: 'package'
-    pathToPublish: '$(Build.ArtifactStagingDirectory)'
-    publishLocation: 'Container'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     ArtifactName: 'package'
+#     pathToPublish: '$(Build.ArtifactStagingDirectory)'
+#     publishLocation: 'Container'
 
 # - task: PublishBuildArtifacts@1
 #   inputs:
@@ -65,6 +65,6 @@ steps:
     azureSubscription: '$(azureServiceConnection)'
     appType: 'webApp'
     WebAppName: '$(azureAppServiceName)'
-    packageForLinux: '$(build.ArtifactStagingDirectory)/package.zip'
+    packageForLinux: '$(build.ArtifactStagingDirectory)/s.zip'
     enableCustomDeployment: true
     DeploymentType: 'zipDeploy'
