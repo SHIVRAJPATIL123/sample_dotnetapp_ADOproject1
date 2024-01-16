@@ -42,17 +42,21 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    artifactName: 'package'
+    ArtifactName: 'package'
     pathToPublish: '$(Build.ArtifactStagingDirectory)'
     publishLocation: 'Container'
+
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'drop'
+#     publishLocation: 'Container'
 
 - task: CmdLine@2
   inputs:
     script: |
       ls $(Build.ArtifactStagingDirectory)
       pwd
-      echo "ls inside package"
-      ls $(Build.ArtifactStagingDirectory)/package
 
 - task: AzureRmWebAppDeployment@4
   inputs:
@@ -60,6 +64,6 @@ steps:
     azureSubscription: '$(azureServiceConnection)'
     appType: 'webApp'
     WebAppName: '$(azureAppServiceName)'
-    packageForLinux: '$(System.ArtifactsDirectory)/package/**/*.zip'
+    packageForLinux: '$(System.ArtifactsDirectory)/package.zip'
     enableCustomDeployment: true
     deploymentMethod: 'zipDeploy'
