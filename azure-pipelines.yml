@@ -62,7 +62,7 @@ steps:
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
-    azureSubscription: 'Pay-As-You-Go(1)(f510d486-a17f-44f2-a1c4-63a7186e923c)'
+    azureSubscription: '$(azureServiceConnection)'
     appType: 'webApp'
     WebAppName: 'mfwebapp4567'
     packageForLinux: '$(build.ArtifactStagingDirectory)/s.zip'
