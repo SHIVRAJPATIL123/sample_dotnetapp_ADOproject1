@@ -39,7 +39,7 @@ steps:
   inputs:
     command: 'publish'
     projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/project'
 
 - task: CmdLine@2
   inputs:
@@ -60,13 +60,13 @@ steps:
 #     publishLocation: 'Container'
 
 
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: ${{ variables.azureServiceConnection }}
-    appType: 'webApp'
-    WebAppName: ${{ variables.azureAppServiceName }}
-    packageForLinux: '$(build.ArtifactStagingDirectory)/s.zip'
-    enableCustomDeployment: true
-    DeploymentType: 'zipDeploy'
+# - task: AzureRmWebAppDeployment@4
+#   inputs:
+#     ConnectionType: 'AzureRM'
+#     azureSubscription: ${{ variables.azureServiceConnection }}
+#     appType: 'webApp'
+#     WebAppName: ${{ variables.azureAppServiceName }}
+#     packageForLinux: '$(build.ArtifactStagingDirectory)/project.zip'
+#     enableCustomDeployment: true
+#     DeploymentType: 'zipDeploy'
 
