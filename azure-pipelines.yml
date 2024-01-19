@@ -5,7 +5,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  azureServiceConnection: 'Pay-As-You-Go(4)(f510d486-a17f-44f2-a1c4-63a7186e923c)'
+  azureServiceConnection: 'shivraj patil service connection'
   azureAppServiceName: 'mfwebapp4567'
 
 steps:
@@ -52,7 +52,7 @@ steps:
 
 - task: AzureKeyVault@2
   inputs:
-    azureSubscription: 'Pay-As-You-Go(4)(f510d486-a17f-44f2-a1c4-63a7186e923c)'
+    azureSubscription: 'shivraj patil service connection'
     KeyVaultName: 'staticwebappkv'
     SecretsFilter: '*'
     RunAsPreJob: true
