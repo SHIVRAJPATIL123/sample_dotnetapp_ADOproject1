@@ -5,7 +5,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  azureServiceConnection: 'Pay-As-You-Go(1)(f510d486-a17f-44f2-a1c4-63a7186e923c)'
+  azureServiceConnection: 'Pay-As-You-Go(4)(f510d486-a17f-44f2-a1c4-63a7186e923c)'
   azureAppServiceName: 'mfwebapp4567'
 
 steps:
@@ -52,8 +52,8 @@ steps:
 
 - task: AzureKeyVault@2
   inputs:
-    azureSubscription: 'Pay-As-You-Go(3)(f510d486-a17f-44f2-a1c4-63a7186e923c)'
-    KeyVaultName: "staticwebappkv"
+    azureSubscription: 'Pay-As-You-Go(4)(f510d486-a17f-44f2-a1c4-63a7186e923c)'
+    KeyVaultName: 'staticwebappkv'
     SecretsFilter: '*'
     RunAsPreJob: true
 
