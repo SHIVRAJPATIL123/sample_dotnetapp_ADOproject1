@@ -46,8 +46,9 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      ls $(Build.ArtifactStagingDirectory)/project
-      pwd
+      dir $(Build.ArtifactStagingDirectory)\project
+      echo %cd%
+
 
 
 - task: AzureKeyVault@2
@@ -75,5 +76,5 @@ steps:
 
 - task: AzureStaticWebApp@0
   inputs:
-    azure_static_web_apps_api_token: '''$(Build.ArtifactStagingDirectory)'''
+    azure_static_web_apps_api_token: '9e5ece50d218e4557665074ed5a0f7d85cf1a3838c982f45104b112cb357d1b74-499d7cc8-96db-43a6-99ae-b8e4f6f78c0b00f151794'
 
