@@ -77,13 +77,3 @@ steps:
 #   inputs:
 #     azure_static_web_apps_api_token: '''$(Build.ArtifactStagingDirectory)'''
 
-# - task: AzureRmWebAppDeployment@4
-#   inputs:
-#     ConnectionType: 'AzureRM'
-#     azureSubscription: ${{ variables.azureServiceConnection }}
-#     appType: 'webApp'
-#     WebAppName: ${{ variables.azureAppServiceName }}
-#     packageForLinux: '$(build.ArtifactStagingDirectory)/s.zip'
-#     enableCustomDeployment: true
-#     DeploymentType: 'zipDeploy'
-
