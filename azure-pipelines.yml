@@ -1,56 +1,80 @@
-trigger: none
+  trigger: none
 
-pool:
-  vmImage: 'windows-latest'
+  pool:
+    vmImage: 'ubuntu-latest'
 
-variables:
-  buildConfiguration: 'Release'
-  azureServiceConnection: 'svc_stati_web_app'
-  azureAppServiceName: 'mfwebapp4567'
+  variables:
+    buildConfiguration: 'Release'
+    azureServiceConnection: 'svc_stati_web_app'
+    azureAppServiceName: 'mfwebapp4567'
 
-steps:
-- task: UseDotNet@2
-  displayName: "Check .NET availability"
-  inputs:
-    packageType: 'sdk'
-    version: '6.x'
-    includePreviewVersions: true
+  steps:
 
-- task: UseDotNet@2
-  displayName: "Install .NET"
-  inputs:
-    packageType: 'runtime'
-    version: '6.x'
-    includePreviewVersions: true
-    installationPath: $(Agent.ToolsDirectory)/dotnet
+  - task: UseDotNet@2
+    displayName: "check dotnet avalability"
+    inputs:
+      packageType: 'sdk'
+      version: '6.x'
+      includePreviewVersions: true
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+  - task: UseDotNet@2
+    displayName: "install dotnet"
+    inputs:
+      packageType: 'runtime'
+      version: '6.x'
+      includePreviewVersions: true
+      installationPath: $(Agent.ToolsDirectory)/dotnet
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
-    projects: '**/*Tests.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'build'
+      projects: '**/*.csproj'
+      arguments: '--configuration $(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'test'
+      projects: '**/*Tests.csproj'
+      arguments: '--configuration $(buildConfiguration)'
 
-- task: AzureKeyVault@2
-  inputs:
-    azureSubscription: 'svc_stati_web_app'
-    KeyVaultName: 'staticwebappkv'
-    SecretsFilter: '*'
-    RunAsPreJob: true
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'publish'
+      projects: '**/*.csproj'
+      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
-- task: AzureStaticWebApp@0
-  inputs:
-    app_location: '$(Build.ArtifactStagingDirectory)'
-    output_location: '$(Build.ArtifactStagingDirectory)/output'
-    api_token: '$(staticwebappkv)'
+  - task: CmdLine@2
+    inputs:
+      script: |
+        dir $(Build.ArtifactStagingDirectory)
+        echo %cd%
+  
+  
+
+  - task: AzureKeyVault@2
+    inputs:
+      azureSubscription: 'svc_stati_web_app'
+      KeyVaultName: 'staticwebappkv'
+      SecretsFilter: '*'
+      RunAsPreJob: true
+
+  - task: CmdLine@2
+    inputs:
+      script: 'echo $(staticwebappkv) > secret.txt'
+
+
+  - task: CopyFiles@2
+    inputs:
+      Contents: 'secret.txt'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
+
+  - task: AzureStaticWebApp@0
+    inputs:
+      azure_static_web_apps_api_token: '9e5ece50d218e4557665074ed5a0f7d85cf1a3838c982f45104b112cb357d1b74-499d7cc8-96db-43a6-99ae-b8e4f6f78c0b00f151794'
+
