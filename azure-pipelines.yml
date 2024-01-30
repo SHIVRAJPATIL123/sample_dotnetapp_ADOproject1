@@ -73,7 +73,7 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
-# - task: AzureStaticWebApp@0
-#   inputs:
-#     azure_static_web_apps_api_token: '''$(Build.ArtifactStagingDirectory)'''
+- task: AzureStaticWebApp@0
+  inputs:
+    azure_static_web_apps_api_token: '''$(Build.ArtifactStagingDirectory)'''
 
