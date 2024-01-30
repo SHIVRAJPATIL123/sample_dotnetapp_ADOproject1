@@ -49,6 +49,7 @@
         dir $(Build.ArtifactStagingDirectory)
         echo %cd%
   
+  
 
   - task: AzureKeyVault@2
     inputs:
