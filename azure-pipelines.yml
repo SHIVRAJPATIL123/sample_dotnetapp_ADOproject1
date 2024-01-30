@@ -76,5 +76,6 @@
 
   - task: AzureStaticWebApp@0
     inputs:
+      app_location: '$(Build.ArtifactStagingDirectory)'
       azure_static_web_apps_api_token: '455e84a6564232e0957a2933432c247557c69187c34b9d7962b2053f9c5017fa4-783227df-60a5-446d-b502-9fce037142bc00f151852'
 
