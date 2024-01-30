@@ -52,7 +52,7 @@ steps:
 
 - task: AzureKeyVault@2
   inputs:
-    azureSubscription: 'all services'
+    azureSubscription: 'svc_stati_web_app'
     KeyVaultName: 'staticwebappkv'
     SecretsFilter: '*'
     RunAsPreJob: true
