@@ -51,6 +51,6 @@ steps:
 
 - task: AzureStaticWebApp@0
   inputs:
-    azure_static_web_apps_api_token: '$(staticwebappkv)'
     app_location: '$(Build.ArtifactStagingDirectory)'
     output_location: '$(Build.ArtifactStagingDirectory)/output'
+    api_token: '$(staticwebappkv)'
